@@ -47,6 +47,8 @@ public class ClearCookiesExtensionContext extends FREContext{
 
 		functionMap.put("isSupported", new ClearCookiesSupportedFunction());
 		functionMap.put("clearAll", new ClearCookiesFunction());
+		functionMap.put("clearByDomain", new ClearCookiesByDomainFunction());
+		functionMap.put("setAcceptCookies", new SetAcceptCookiesFunction());
 		functionMap.put("initNativeCode", new ClearCookiesInitNativeCodeFunction());
 
 

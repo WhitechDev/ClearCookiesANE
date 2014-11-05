@@ -12,6 +12,7 @@
  */
 
 #import "FlashRuntimeExtensions.h"
+#import "ExtensionUtils.h"
 
 
 
@@ -22,7 +23,7 @@
 FREObject ClearAll(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
     
     
-	// The duration value passed to VibrateDevice() is not used in the iOS implementation.
+    // The duration value passed to VibrateDevice() is not used in the iOS implementation.
     
     // AudioServicesPlaySystemSound() vibrates the device.  However,it does nothing if the device does not
     // support vibration.
@@ -35,7 +36,40 @@ FREObject ClearAll(FREContext ctx, void* funcData, uint32_t argc, FREObject argv
     }
     
     
-	return NULL;
+    return NULL;
+}
+
+FREObject ClearByDomain(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+    
+    NSString *domain = [ExtensionUtils stringFromFREObject:argv[0] defaultValue:@""];
+
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
+    NSArray *allCookies = [storage cookies];
+    
+    for ( NSHTTPCookie *cookie in allCookies) {
+        if([[cookie domain] rangeOfString:domain].location != NSNotFound) {
+            [storage deleteCookie:cookie];
+        }
+    }
+    
+    
+    return NULL;
+}
+
+FREObject SetAcceptCookies(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
+    
+    BOOL accept = [ExtensionUtils boolFromFREObject:argv[0] defaultValue:@""];
+
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
+    if(accept){
+    	storage.cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    }else{
+    	storage.cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
+    }
+    
+    return NULL;
 }
 
 

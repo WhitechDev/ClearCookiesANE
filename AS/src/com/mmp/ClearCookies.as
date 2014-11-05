@@ -18,13 +18,29 @@ package com.mmp
 		
 		public static function get isSupported():Boolean
 		{
-			return getExtension().call("isSupported") as Boolean;
+			try{
+				return getExtension().call("isSupported") as Boolean;
+			}catch(e:Error){
+				return false;
+			}
 		}
 		
 		
 		public static function clearAll():void
 		{
 			getExtension().call("clearAll");
+		}
+		
+		
+		public static function clearByDomain(domain:String):void
+		{
+			getExtension().call("clearByDomain", domain);
+		}
+		
+		
+		public static function setAcceptCookies(accept:Boolean):void
+		{
+			getExtension().call("setAcceptCookies", accept);
 		}
 	}
 }
