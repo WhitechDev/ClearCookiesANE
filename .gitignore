@@ -9,3 +9,7 @@ ANDROID/build/
 Binaries/iOS
 Binaries/Android
 Binaries/Default
+/temp
+/IOS/ClearCookiesANE/ClearCookiesANE.xcodeproj
+/IOS/ClearCookiesANE/._ClearCookiesANE.xcodeproj
+/IOS/ClearCookiesANE/ClearCookiesANE/._*
